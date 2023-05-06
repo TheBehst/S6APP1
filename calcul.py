@@ -114,6 +114,8 @@ Bq2 = 70
 Vbeq3 = 0.64
 Vbeq2 = 0.59
 
+Vdel = 2.6
+
 Rth3 = (R8*R7)/(R8+R7)
 Vth3 = (Vpp-Vmm)*R8/(R7+R8) + Vmm
 
@@ -123,6 +125,19 @@ Ic3 = (Bq3 + Bq2*Bq3 + Bq2)*Ibq3
 Icq3 = (Bq3)*Ibq3
 Icq2 = Ic3-Icq3
 
+Vbq3 = Vth3 - Ibq3*Rth3
+
+Veq3 = Vbq3-Vbeq3
+
+Vcq3 = Vpp - Vdel
+
+Vceq3 = Vcq3 - Veq3
+
+Vbq2 = Veq3
+Veq2 = Vmm #on neglige R10
+Vcq2 = Vcq3
+Vceq2 = Vcq2 - Veq2
+
 print("\n\nEtage 3:")
 print("\tResistance thevenin: "+ str(Rth3) + " \u03A9")
 print("\tVoltage thevenin: "+ str(Vth3) + " V")
@@ -131,7 +146,15 @@ print("\tCourant Ic du macrotransistor: "+ str(Ic3) + " A")
 print("\tCourant Ic3 du macrotransistor: "+ str(Icq3) + " A")
 print("\tCourant Ic2 du macrotransistor: "+ str(Icq2) + " A")
 
+print("\n\tVoltage Vb de Q3: "+ str(Vbq3) + " V")
+print("\tVoltage Ve de Q3: "+ str(Veq3) + " V")
+print("\tVoltage Vc de Q3: "+ str(Vcq3) + " V")
+print("\tVoltage Vce de Q3: "+ str(Vceq3) + " V")
 
+print("\n\tVoltage Vb de Q2: "+ str(Vbq2) + " V")
+print("\tVoltage Ve de Q2: "+ str(Veq2) + " V")
+print("\tVoltage Vc de Q2: "+ str(Vcq2) + " V")
+print("\tVoltage Vce de Q2: "+ str(Vceq2) + " V")
 #===============================================================
 # Misc
 #===============================================================
