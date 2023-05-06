@@ -95,7 +95,7 @@ gm2 = 2*Id2/Vov2
 print("\n\nEtage 2:")
 print("\tVoltage Vg: "+ str(Vg2) + " V")
 print("\tVoltage Vgs: " + str(Vgs2[1]) + " V")
-print("\t\t Calculer avec coefficient: " + str(coeff2))
+print("\t\t Calculee avec coefficient: " + str(coeff2))
 print("\tCourant Id: " + str(Id2) + " A")
 print("\tVoltage Vds: " + str(Vds2) + " V")
 print("\tVoltage Vov: " + str(Vov2) + " V")
@@ -108,10 +108,28 @@ print("\tGain Gm: " + str(gm2) + " A/V")
 # Etage 3
 #===============================================================
 
-Vi3 = (Vpp-Vmm)*R8/(R8+R7) + Vmm
+Bq3 = 200
+Bq2 = 70
+
+Vbeq3 = 0.64
+Vbeq2 = 0.59
+
+Rth3 = (R8*R7)/(R8+R7)
+Vth3 = (Vpp-Vmm)*R8/(R7+R8) + Vmm
+
+Ibq3 = (Vth3-Vbeq3-Vbeq2-Vmm)/Rth3
+
+Ic3 = (Bq3 + Bq2*Bq3 + Bq2)*Ibq3
+Icq3 = (Bq3)*Ibq3
+Icq2 = Ic3-Icq3
 
 print("\n\nEtage 3:")
-print("\tVoltage Vi3: "+ str(Vi3) + " V")
+print("\tResistance thevenin: "+ str(Rth3) + " \u03A9")
+print("\tVoltage thevenin: "+ str(Vth3) + " V")
+print("\n\tCourant Ib du macrotransistor: "+ str(Ibq3) + " A")
+print("\tCourant Ic du macrotransistor: "+ str(Ic3) + " A")
+print("\tCourant Ic3 du macrotransistor: "+ str(Icq3) + " A")
+print("\tCourant Ic2 du macrotransistor: "+ str(Icq2) + " A")
 
 
 #===============================================================
