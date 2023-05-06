@@ -160,22 +160,21 @@ print("\tVoltage Vce de Q2: "+ str(Vceq2) + " V")
 # DEL
 #===============================================================
 
-Dp = 8.5 / 10000
-Dn = 1.84e2 / 10000
+Dp = 8.5 # cm^2
+Dn = 1.84e10 # cm^2
 
-Lp = 1.61e-5 / 100
-Ln = 5.09e-5 / 100
+Lp = 1.61e-5
+Ln = 5.09e-5
 
-Nd = 1e17 / 100**3
+Nd = 1e17
 Na = Nd
 
-A = np.pi*(1.3e-3)**2
+A = np.pi*(0.13**2)
 
-ni = 2.18e6 / 100**3
+ni = 2.18e6
 q = 1.6e-19
 
 Is = A*q*(ni**2)*((Dp/(Lp*Nd))+(Dn/(Ln*Na)))
-
 print("\n\nDel:")
 print("\tIs: "+ str(Is) + " A")
 
@@ -184,6 +183,5 @@ print("\tIs: "+ str(Is) + " A")
 #===============================================================
 
 print("\n\n\nTemps de calcul: " + str(1000*(time.perf_counter()-temps_ini)) + " ms")
-
 
 
