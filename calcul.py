@@ -161,7 +161,7 @@ print("\tVoltage Vce de Q2: "+ str(Vceq2) + " V")
 #===============================================================
 
 Dp = 8.5 # cm^2
-Dn = 1.84e10 # cm^2
+Dn = 1.84e2 # cm^2
 
 Lp = 1.61e-5
 Ln = 5.09e-5
@@ -169,14 +169,23 @@ Ln = 5.09e-5
 Nd = 1e17
 Na = Nd
 
-A = np.pi*(0.13**2)
+A = np.pi*((0.13/2)**2)
 
 ni = 2.18e6
 q = 1.6e-19
 
+Vt = 25.9e-3
+e0 = 8.854e-14
+es = 11.7*e0
 Is = A*q*(ni**2)*((Dp/(Lp*Nd))+(Dn/(Ln*Na)))
+
+
+v0 = Vt*np.log((Na*Nd)/ni**2)
+cj0 = A* np.sqrt((es*q/2)*((Na*Nd)/(Na+Nd))*(1/v0))
 print("\n\nDel:")
 print("\tIs: "+ str(Is) + " A")
+print("\tJunction built-in voltage : "+str(v0) + " V")
+print("\tcapacite de jonction Cj0 : " + str(cj0) + " F")
 
 #===============================================================
 # Misc
