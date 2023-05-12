@@ -87,6 +87,8 @@ Vov2 = Vgs2[1]-Vt2
 Id2 = k2/2 * (Vgs2[1]-Vt2)**2
 Vo2 = Id2*R6+Vmm
 Vds2 = Vpp - Id2*(R5+R6) - Vmm
+Vin2 = Vg2
+Av2 = Vo2/Vin2
 
 ro2 = Va2/Id2
 
@@ -100,6 +102,7 @@ print("\tCourant Id: " + str(Id2) + " A")
 print("\tVoltage Vds: " + str(Vds2) + " V")
 print("\tVoltage Vov: " + str(Vov2) + " V")
 print("\tVoltage Vo2: " + str(Vo2) + " V")
+print("\tGain Voltage : " + str(Av2) + " V")
 
 print("\n\tResistance Ro: " + str(ro2) + " \u03A9")
 print("\tGain Gm: " + str(gm2) + " A/V")
