@@ -88,12 +88,12 @@ Id2 = k2/2 * (Vgs2[1]-Vt2)**2
 Vo2 = Id2*R6+Vmm
 Vds2 = Vpp - Id2*(R5+R6) - Vmm
 Vin2 = Vg2
-Av2 = Vo2/Vin2
+
 
 ro2 = Va2/Id2
 
 gm2 = 2*Id2/Vov2
-
+Av2 = -(gm2*R6)/(1+(gm2*R5))
 print("\n\nEtage 2:")
 print("\tVoltage Vg: "+ str(Vg2) + " V")
 print("\tVoltage Vgs: " + str(Vgs2[1]) + " V")

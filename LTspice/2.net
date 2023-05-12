@@ -1,0 +1,26 @@
+* U:\S6\App1\Dev\LTspice\2.asc
+V1 VPP 0 10
+V2 0 VMM 10
+R7 VPP Vin 220k
+R8 Vin VMM 15k
+R10 N003 VMM .01
+D1 VPP vo3 L1IZ0850
+Q2 vo3 N001 N003 0 2N3055A
+Q3 vo3 Vin N001 0 2N2222
+R11 N001 N003 75
+VBE Vin 0 10
+VCE vo3 0 10
+.model D D
+.lib C:\Users\nikb2701\Documents\LTspiceXVII\lib\cmp\standard.dio
+.model NPN NPN
+.model PNP PNP
+.lib C:\Users\nikb2701\Documents\LTspiceXVII\lib\cmp\standard.bjt
+.lib ALD1115_UdeS.lib
+.lib 2N3055A_UdeS.lib
+;.op
+;.tran .2m
+;.ac dec 100 1 1meg
+.dc VCE 5 10 0.02 VBE -10 -8 0.1
+.model L1IZ0850 D( mfg=S6eAPP1 type=LED Is=4.1813071601760576e-19 Rs=0.25 N=3.4 Vj=1.2716439573697156 Cjo=7.576811894451617e-10)
+.backanno
+.end
