@@ -1,0 +1,19 @@
+* U:\S6\App1\Dev\LTspice\Gummeling.asc
+V1 VPP 0 10
+V2 0 VMM 10
+Q11 N001 N001 N002 0 2N2222
+VGummel N001 0 0
+R1 N002 0 1
+.model NPN NPN
+.model PNP PNP
+.lib C:\Users\nikb2701\Documents\LTspiceXVII\lib\cmp\standard.bjt
+.lib ALD1115_UdeS.lib
+.lib 2N3055A_UdeS.lib
+;.op
+;.tran 2m
+;.ac dec 100 1 1meg
+;.dc VCE 0 20 0.02 VBE 1 1.5 0.02
+.dc VGummel 0.1 2 0.1
+.model L1IZ0850 D( mfg=S6eAPP1 type=LED Is=4.1813071601760576e-19 Rs=0.25 N=3.4 Vj=1.2716439573697156 Cjo=7.576811894451617e-10)
+.backanno
+.end
