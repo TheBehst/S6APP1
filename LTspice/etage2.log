@@ -1,0 +1,24 @@
+Circuit: * U:\S6\App1\Dev\LTspice\etage2.asc
+
+WARNING: Node VI3 is floating.
+
+WARNING: Less than two connections to node VI3.  This node is used by C2.
+Direct Newton iteration for .op point succeeded.
+
+Date: Mon May 15 22:05:04 2023
+Total elapsed time: 0.061 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2903
+traniter = 2897
+tranpoints = 1413
+accept = 1313
+rejected = 100
+matrix size = 15
+fillins = 1
+solver = Normal
+Matrix Compiler1: 990 bytes object code size  0.2/0.1/[0.1]
+Matrix Compiler2: 1.24 KB object code size  0.1/0.2/[0.1]
+

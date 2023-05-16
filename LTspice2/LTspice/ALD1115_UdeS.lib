@@ -1,0 +1,113 @@
+* Librairie de la composante ALD1115 (un nmos et un pmos dans le même package)
+* Adapté des fichiers de modèles fournis par ALD
+* par Serge Charlebois Avril 2021
+*	Révision 2022: augmenté la transconductance: ne respecte plus la spec sheet!!!!
+* Sources: tirées de Model_ALDMOSFET.zip
+*	- Ic_mod.lib: contient les modèles spice nmos et pmos
+*	- IC_TRAN.LIB: contient les définitions des pièces 
+*			ALD1107 (pmos)
+*			ALD1106 (nmos)
+*	- ALD_TECH.TEK: définitions de paramètres MonteCarlo
+*
+* -----------------------------------------------------------------------------
+* tiré de ALD_TECH.TEK
+* -----------------------------------------------------------------------------
+.param: 
+* resistors:  implanted and polysilicon (a multiplier)
++             ires=1.0      pres=1.0   M_dec=1
+* capacitors: poly/gate   interpoly  (a multiplier)
++             Cox=1.0     Pox=1.0 
+* transistors: (input a delta shift of threshold) 
++             Vtn=0.0     Vtp=0.0    Lv=0.0u Wv=0.0u M=1
+* amplifiers: 
++             vos=0.0 
+* zeners: 
++             bvz=5.3 
+* -----------------------------------------------------------------------------
+*
+*============================================================================
+* 		     	            N-channel TRANSISTOR models
+*============================================================================
+*  Listing of 1101 transistor models:
+*
+* 	--nca  2mv ultra precision matched transistor model. (ALD1101A)
+*   	--ncg  general purpose transistor model.       	(ALD1101)
+*
+*============================================================================
+*  Four terminal integrated N-channel (.040 vos dist).
+*
+.model nmosg  nmos  (level=2  w=1
++	gamma=1.09 lot/4/uniform=-.22 dev/uniform=.04
++	vto={.750+vtn}    lot/2/uniform=.2   dev/uniform=19e-3
++             Uo=650     lot/3/uniform=40   dev/uniform=5
++             Ucrit=0.7e4 Uexp=.1 Vmax=1.6e5
++             phi=.70 tpg=+1
++             nsub={1e16*ires} neff={10*ires} nss=.7e11 nfs=1.17e11
++             tox={.055u*cox} lot/8/uniform=9.1% dev/uniform=.05%
++             Cgso={.94n*cox} Cgdo={.59n*cox} Cgbo={.138n*pox} Xqc=.42
++             cj=.39m cjsw=264p
++             xj=2.0u 
++			ld=1.6u lot/uniform=.19 dev/uniform=.02 
++			wd=1.05u lot/uniform=.42 dev/uniform=.1
++            	pb=.9 js=20e-6  mj=.5 mjsw=0.18
++             kf=.75e-28 rsh=10 lot/1/uniform=4 dev/uniform=.5
++			  Rd = 0.01  Rs = 0.01)
+*	J'ai réduit la résistance série pour permettre une dépendance attendue avec W
+*
+*--------------------------------------------------------
+*============================================================================
+* 				P-channel TRANSISTOR models
+*============================================================================
+*  Listing of 1102 transistor models:
+*	
+*	--pca  2mv ultra precision matched transistor model.
+*	--pcg  general purpose transistor model.
+*
+*============================================================================
+  Four terminal integrated P-channel ( 40mv. vos dist)
+*
+.model pmosg pmos (level=2 w=2m
++	vto={-.74+vtp} lot/5/uniform=.2 dev/uniform=19e-3
++             gamma=.58  lot/7/uniform=.2 dev/uniform=.03
++             Uo=260  lot/6/uniform=20 dev/uniform=.5
++             Ucrit=1.0e4 Uexp=.16 Vmax=3.0e5
++             phi=.70 tpg=-1
++             nsub=1e16 Neff=1 nss=1e11 nfs=1.06e11
++             tox={.055u*cox} lot/8/uniform=10% dev/uniform=.05%
++             Cgso={.31n*cox} Cgdo={.39n*cox} Cgbo=.138n Xqc=.42
++             cj=.18m cjsw=322p
++             xj=1.2u ld=.96u wd=.5u pb=.9 js=20e-6 mj=.57 mjsw=0.33
++             kf=.75e-28  rsh=90 lot/9/uniform=20 dev/uniform=4
++			  mfg=ALD
++			  Rd = 0.01  Rs = 0.01)
+*	J'ai réduit la résistance série pour permettre une dépendance attendue avec W
+*
+*============================================================================
+
+*============================================================================
+* modèle de diode tiré de ALD1108.lib
+*============================================================================
+.model dps D (Is=2.61e-7
++             Isr=1.0e-5
++             Bv=34 Ibv=1e+4
++             Rs=2.74e-7 trs1=3e-3
++             Cjo=1.3e-4 )
+
+
+*============================================================================
+* subcircuits des pièces selon IC_TRANS.LIB
+*============================================================================
+* PMOS
+.subckt ald1107p 1 2 3 params: vtp=0.0
+	mt 1 2 3 3 pmosg l=7.8e-6 w={20*0.138e-3} as=0.603e-8 ps=0.478e-6 ad=0.161e-8
++	nrd=.3 nrs=1 nrg=25 nrb=35
+.ends
+*
+* NMOS: j'ai ajusté w pour que le courant corresponde à la fiche technique
+.subckt ald1106n 1 2 3 params: vtn=0.0
+	m1 1 2 3 3 nmosg l=7.8e-6 w={20*0.138e-3/1.5} as=0.603e-8 ps=0.478e-3 ad=0.161e-8
+	+ nrd=.3 nrs=1 nrg=25 nrb=35
+*	dps 4 3 dps 0.8e-8
+.ends
+* dans ce cas il faut remplacer le lien entre les pins 4 et 5 qui est fait par une diode dps(...?)
+
